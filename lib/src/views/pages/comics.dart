@@ -20,10 +20,9 @@ class _ComicsPageState extends State<ComicsPage> {
           "Comics",
         ),
         elevation: 0,
-        backgroundColor: const Color.fromARGB(255, 8, 8, 8),
       ),
       body: const Text("Comics"),
-      backgroundColor: const Color.fromARGB(255, 15, 15, 15),
+      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

@@ -20,10 +20,9 @@ class _MangaPageState extends State<MangaPage> {
           "Manga",
         ),
         elevation: 0,
-        backgroundColor: const Color.fromARGB(255, 8, 8, 8),
       ),
       body: const Text("Manga"),
-      backgroundColor: const Color.fromARGB(255, 15, 15, 15),
+      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

@@ -21,6 +21,7 @@ class ItemResult extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
+            color: Colors.black,
             clipBehavior: Clip.antiAlias,
             child: Image.network(
               item.cover ?? '',
@@ -30,16 +31,18 @@ class ItemResult extends StatelessWidget {
           Container(
             height: 200,
             width: double.infinity,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
+            margin: const EdgeInsets.all(3.5),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
                 colors: [
                   Color.fromARGB(0, 0, 0, 0),
-                  Color.fromARGB(150, 0, 0, 0),
+                  Color.fromARGB(175, 0, 0, 0),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 stops: [0, 1],
               ),
+              borderRadius: BorderRadius.circular(8),
             ),
             alignment: AlignmentDirectional.bottomStart,
             child: Padding(

@@ -18,28 +18,28 @@ class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            leading: const Icon(LineIcons.search),
-            title: const Text(
-              "Discover",
-            ),
-            elevation: 0,
-            backgroundColor: const Color.fromARGB(255, 8, 8, 8),
-            bottom: const TabBar(
-              tabs: [
-                Tab(text: "Comics"),
-                Tab(text: "Manga"),
-              ],
-              indicatorColor: Colors.white,
-            ),
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: const Icon(LineIcons.search),
+          title: const Text(
+            "Discover",
           ),
-          body: const TabBarView(
-            children: [ComicSources(), MangaSources()],
+          elevation: 0,
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: "Comics"),
+              Tab(text: "Manga"),
+            ],
+            indicatorColor: Colors.white,
           ),
-          backgroundColor: const Color.fromARGB(255, 15, 15, 15),
-        ));
+        ),
+        body: const TabBarView(
+          children: [ComicSources(), MangaSources()],
+        ),
+        backgroundColor: Theme.of(context).colorScheme.background,
+      ),
+    );
   }
 }
 
@@ -65,9 +65,10 @@ class _ComicSourcesState extends State<ComicSources> {
           );
         } else {
           return const Center(
-              child: CircularProgressIndicator(
-            color: Colors.white,
-          ));
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
         }
       },
     );
@@ -96,9 +97,10 @@ class _MangaSourcesState extends State<MangaSources> {
           );
         } else {
           return const Center(
-              child: CircularProgressIndicator(
-            color: Colors.white,
-          ));
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
         }
       },
     );
@@ -122,9 +124,11 @@ class _SourceElementState extends State<SourceElement> {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SourceActivity(widget.source)));
+          context,
+          MaterialPageRoute(
+            builder: (context) => SourceActivity(widget.source),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(10),
