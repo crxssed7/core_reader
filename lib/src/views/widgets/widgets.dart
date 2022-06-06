@@ -10,6 +10,7 @@ class ItemResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(8),
       onTap: () {
         print("tap");
       },
@@ -21,7 +22,6 @@ class ItemResult extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
-            color: Colors.black,
             clipBehavior: Clip.antiAlias,
             child: Image.network(
               item.cover ?? '',

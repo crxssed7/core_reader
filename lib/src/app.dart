@@ -27,25 +27,25 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: const Color.fromARGB(255, 8, 8, 8),
+        colorScheme: const ColorScheme(
           brightness: Brightness.dark,
-          primaryColor: const Color.fromARGB(255, 8, 8, 8),
-          colorScheme: const ColorScheme(
-            brightness: Brightness.dark,
-            primary: Colors.white,
-            onPrimary: Color.fromARGB(255, 8, 8, 8),
-            secondary: Color.fromARGB(255, 8, 8, 8),
-            onSecondary: Colors.white,
-            error: Colors.red,
-            onError: Colors.white,
-            background: Color.fromARGB(255, 15, 15, 15),
-            onBackground: Colors.white,
-            surface: Colors.black,
-            onSurface: Colors.white,
-          ),
+          primary: Colors.white,
+          onPrimary: Color.fromARGB(255, 8, 8, 8),
+          secondary: Color.fromARGB(255, 8, 8, 8),
+          onSecondary: Colors.white,
+          error: Colors.red,
+          onError: Colors.white,
+          background: Color.fromARGB(255, 15, 15, 15),
+          onBackground: Colors.white,
+          surface: Colors.black,
+          onSurface: Colors.white,
+        ),
         appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromARGB(255, 8, 8, 8),
           foregroundColor: Colors.white,
-        )
+        ),
       ),
       home: Scaffold(
         bottomNavigationBar: SafeArea(
