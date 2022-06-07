@@ -17,11 +17,31 @@ class SourceActivity extends StatefulWidget {
 class _SourceActivityState extends State<SourceActivity> {
   Icon customIcon = const Icon(LineIcons.search);
   Widget? customSearchBar;
+  Widget? itemResults;
 
   @override
   void initState() {
     super.initState();
     customSearchBar = Text(widget.source.name ?? '');
+    itemResults = FutureBuilder<Information>(
+      future: CoreClient.getSourceInfo(widget.source.endpoint ?? ''),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200,
+              childAspectRatio: 0.65,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+            ),
+            itemBuilder: (_, index) => ItemResult(snapshot.data!.items![index]),
+            itemCount: snapshot.data!.items!.length,
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator(color: Colors.white,));
+        }
+      },
+    );
   }
 
   @override
@@ -49,6 +69,29 @@ class _SourceActivityState extends State<SourceActivity> {
                           hintText: 'Search ${widget.source.name}...',
                           border: InputBorder.none,
                         ),
+                        onSubmitted: (query) {
+                          setState(() {
+                            itemResults = FutureBuilder<List<Result>>(
+                              future: CoreClient.searchSource(widget.source.searchEndpoint?.replaceAll('<query>', query) ?? ''),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return GridView.builder(
+                                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: 200,
+                                      childAspectRatio: 0.65,
+                                      crossAxisSpacing: 5,
+                                      mainAxisSpacing: 5,
+                                    ),
+                                    itemBuilder: (_, index) => ItemResult(snapshot.data![index]),
+                                    itemCount: snapshot.data!.length,
+                                  );
+                                } else {
+                                  return const Center(child: CircularProgressIndicator(color: Colors.white,));
+                                }
+                              },
+                            );
+                          });
+                        },
                       ),
                     ),
                   );
@@ -64,25 +107,7 @@ class _SourceActivityState extends State<SourceActivity> {
         title: customSearchBar,
         elevation: 0,
       ),
-      body: FutureBuilder<Information>(
-        future: CoreClient.getSourceInfo(widget.source.endpoint ?? ''),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 0.65,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-              ),
-              itemBuilder: (_, index) => ItemResult(snapshot.data!.items![index]),
-              itemCount: snapshot.data!.items!.length,
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator(color: Colors.white,));
-          }
-        },
-      ),
+      body: itemResults,
       backgroundColor: Theme.of(context).colorScheme.background,
     );
   }

@@ -48,4 +48,20 @@ abstract class CoreClient {
       throw Exception("Could not retrieve source information");
     }
   }
+
+  static Future<List<Result>> searchSource(String endpointWithQuery) async {
+    var uri = Uri.parse(baseUrl);
+    uri = uri.replace(
+      path: endpointWithQuery
+    );
+
+    var response = await http.get(uri);
+    if (response.statusCode == 200) {
+      var map = json.decode(response.body);
+      var obj = Result.fromJsonList(map);
+      return obj;
+    } else {
+      throw Exception("Could not search this source");
+    }
+  }
 }
