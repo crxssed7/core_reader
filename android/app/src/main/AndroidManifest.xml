@@ -2,7 +2,7 @@
     package="com.example.core_reader">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="core_reader"
+        android:label="Core Reader"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
