@@ -116,3 +116,77 @@ class Information {
     return data;
   }
 }
+
+// -----------------------------------------------------------------------------
+
+class Item {
+  List<ChapterResult>? chapters;
+  String? cover;
+  List<String>? genres;
+  String? id;
+  String? name;
+  String? status;
+  String? summary;
+
+  Item(
+      {this.chapters,
+        this.cover,
+        this.genres,
+        this.id,
+        this.name,
+        this.status,
+        this.summary});
+
+  Item.fromJson(Map<String, dynamic> json) {
+    if (json['chapters'] != null) {
+      chapters = <ChapterResult>[];
+      json['chapters'].forEach((v) {
+        chapters?.add(ChapterResult.fromJson(v));
+      });
+    }
+    cover = json['cover'];
+    genres = json['genres'].cast<String>();
+    id = json['id'].toString();
+    name = json['name'];
+    status = json['status'];
+    summary = json['summary'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (chapters != null) {
+      data['chapters'] = chapters?.map((v) => v.toJson()).toList();
+    }
+    data['cover'] = cover;
+    data['genres'] = genres;
+    data['id'] = id.toString();
+    data['name'] = name;
+    data['status'] = status;
+    data['summary'] = summary;
+    return data;
+  }
+}
+
+// -----------------------------------------------------------------------------
+
+class ChapterResult {
+  String? detail;
+  String? name;
+  int? number;
+
+  ChapterResult({this.detail, this.name, this.number});
+
+  ChapterResult.fromJson(Map<String, dynamic> json) {
+    detail = json['detail'];
+    name = json['name'];
+    number = json['number'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['detail'] = detail;
+    data['name'] = name;
+    data['number'] = number;
+    return data;
+  }
+}

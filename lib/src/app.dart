@@ -29,6 +29,8 @@ class _HomePageState extends State<HomePage> {
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: const Color.fromARGB(255, 8, 8, 8),
+        backgroundColor: const Color.fromARGB(255, 15, 15, 15),
+        fontFamily: 'Montserrat',
         colorScheme: const ColorScheme(
           brightness: Brightness.dark,
           primary: Colors.white,

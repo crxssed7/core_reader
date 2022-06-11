@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:core_reader/src/api/core.dart';
 import 'package:core_reader/src/api/models/models.dart';
+import 'package:core_reader/src/views/activity/item.dart';
 
 class ItemResult extends StatelessWidget {
   final Result item;
@@ -12,7 +14,13 @@ class ItemResult extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(8),
       onTap: () {
-        print("tap");
+        // Get the item details
+        CoreClient.getItemDetails(item.detail ?? '').then((value) => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemActivity(value),
+          ),
+        ));
       },
       child: Stack(
         fit: StackFit.expand,

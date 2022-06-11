@@ -64,4 +64,20 @@ abstract class CoreClient {
       throw Exception("Could not search this source");
     }
   }
+
+  static Future<Item> getItemDetails(String detailEndpoint) async {
+    var uri = Uri.parse(baseUrl);
+    uri = uri.replace(
+        path: detailEndpoint
+    );
+
+    var response = await http.get(uri);
+    if (response.statusCode == 200) {
+      var map = json.decode(response.body);
+      var obj = Item.fromJson(map);
+      return obj;
+    } else {
+      throw Exception("Could not retrieve item details");
+    }
+  }
 }
