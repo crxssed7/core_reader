@@ -51,38 +51,40 @@ class _HomePageState extends State<HomePage> {
       ),
       home: Scaffold(
         bottomNavigationBar: SafeArea(
-            child: Container(
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 8, 8, 8),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: GNav(
-              tabs: const [
-                GButton(icon: LineIcons.meteor, text: "Comics"),
-                GButton(icon: LineIcons.dragon, text: "Manga"),
-                GButton(icon: LineIcons.search, text: "Discover"),
-                GButton(icon: LineIcons.cog, text: "Settings"),
-              ],
-              onTabChange: (int value) => {
-                setState(() {
-                  currentScreen = value;
-                })
-              },
-              selectedIndex: currentScreen,
-              backgroundColor: const Color.fromARGB(255, 8, 8, 8),
-              activeColor: Colors.white,
-              color: Colors.white,
-              rippleColor: Colors.grey[500]!,
-              tabBackgroundColor: Colors.black,
-              duration: const Duration(milliseconds: 250),
-              tabActiveBorder: Border.all(color: Colors.white),
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              gap: 10,
-              hoverColor: Colors.grey,
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 8, 8, 8),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: GNav(
+                tabs: const [
+                  GButton(icon: LineIcons.meteor, text: "Comics"),
+                  GButton(icon: LineIcons.dragon, text: "Manga"),
+                  GButton(icon: LineIcons.search, text: "Discover"),
+                  GButton(icon: LineIcons.cog, text: "Settings"),
+                ],
+                onTabChange: (int value) => {
+                  setState(() {
+                    currentScreen = value;
+                  })
+                },
+                selectedIndex: currentScreen,
+                backgroundColor: const Color.fromARGB(255, 8, 8, 8),
+                activeColor: Colors.white,
+                color: Colors.white,
+                rippleColor: Colors.grey[500]!,
+                tabBackgroundColor: Colors.black,
+                duration: const Duration(milliseconds: 250),
+                tabActiveBorder: Border.all(color: Colors.white),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                gap: 10,
+                hoverColor: Colors.grey,
+              ),
             ),
           ),
-        )),
+        ),
         body: screens[currentScreen],
       ),
     );

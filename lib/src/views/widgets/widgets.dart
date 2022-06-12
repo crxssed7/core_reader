@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
 import 'package:core_reader/src/api/core.dart';
 import 'package:core_reader/src/api/models/models.dart';
@@ -65,6 +66,35 @@ class ItemResult extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
+
+class ChapterButton extends StatelessWidget {
+  final ChapterResult chapter;
+  const ChapterButton(this.chapter, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(chapter.name ?? ''),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(LineIcons.download),
+            )
+          ],
+        ),
       ),
     );
   }
