@@ -7,8 +7,9 @@ import 'package:core_reader/src/views/widgets/widgets.dart';
 
 class SourceActivity extends StatefulWidget {
   final Source source;
+  final SourceType sourceType;
 
-  const SourceActivity(this.source, {Key? key}) : super(key: key);
+  const SourceActivity(this.source, this.sourceType, {Key? key}) : super(key: key);
 
   @override
   State<SourceActivity> createState() => _SourceActivityState();
@@ -34,7 +35,7 @@ class _SourceActivityState extends State<SourceActivity> {
               crossAxisSpacing: 5,
               mainAxisSpacing: 5,
             ),
-            itemBuilder: (_, index) => ItemResult(snapshot.data!.items![index]),
+            itemBuilder: (_, index) => ItemResult(snapshot.data!.items![index], widget.sourceType),
             itemCount: snapshot.data!.items!.length,
           );
         } else {
@@ -82,7 +83,7 @@ class _SourceActivityState extends State<SourceActivity> {
                                       crossAxisSpacing: 5,
                                       mainAxisSpacing: 5,
                                     ),
-                                    itemBuilder: (_, index) => ItemResult(snapshot.data![index]),
+                                    itemBuilder: (_, index) => ItemResult(snapshot.data![index], widget.sourceType),
                                     itemCount: snapshot.data!.length,
                                   );
                                 } else {

@@ -3,11 +3,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:core_reader/src/api/models/models.dart';
 
-enum SourceType {
-  comics,
-  manga
-}
-
 abstract class CoreClient {
   static String baseUrl = "http://192.168.1.38:5000";
 
@@ -75,6 +70,22 @@ abstract class CoreClient {
     if (response.statusCode == 200) {
       var map = json.decode(response.body);
       var obj = Item.fromJson(map);
+      return obj;
+    } else {
+      throw Exception("Could not retrieve item details");
+    }
+  }
+
+  static Future<Chapter> getChapter(String chapterEndpoint) async {
+    var uri = Uri.parse(baseUrl);
+    uri = uri.replace(
+        path: chapterEndpoint
+    );
+
+    var response = await http.get(uri);
+    if (response.statusCode == 200) {
+      var map = json.decode(response.body);
+      var obj = Chapter.fromJson(map);
       return obj;
     } else {
       throw Exception("Could not retrieve item details");

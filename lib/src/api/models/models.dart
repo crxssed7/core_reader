@@ -1,3 +1,10 @@
+enum SourceType {
+  comics,
+  manga
+}
+
+// -----------------------------------------------------------------------------
+
 class Source {
   String? endpoint;
   String? logo;
@@ -187,6 +194,30 @@ class ChapterResult {
     data['detail'] = detail;
     data['name'] = name;
     data['number'] = number;
+    return data;
+  }
+}
+
+// -----------------------------------------------------------------------------
+
+class Chapter {
+  List<String>? images;
+  String? name;
+  String? parent;
+
+  Chapter({this.images, this.name, this.parent});
+
+  Chapter.fromJson(Map<String, dynamic> json) {
+    images = json['images'].cast<String>();
+    name = json['name'];
+    parent = json['parent'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['images'] = images;
+    data['name'] = name;
+    data['parent'] = parent;
     return data;
   }
 }

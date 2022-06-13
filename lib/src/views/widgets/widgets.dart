@@ -4,11 +4,13 @@ import 'package:line_icons/line_icons.dart';
 import 'package:core_reader/src/api/core.dart';
 import 'package:core_reader/src/api/models/models.dart';
 import 'package:core_reader/src/views/activity/item.dart';
+import 'package:core_reader/src/views/activity/reader.dart';
 
 class ItemResult extends StatelessWidget {
   final Result item;
+  final SourceType sourceType;
 
-  const ItemResult(this.item, {Key? key}) : super(key: key);
+  const ItemResult(this.item, this.sourceType, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class ItemResult extends StatelessWidget {
         CoreClient.getItemDetails(item.detail ?? '').then((value) => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ItemActivity(value),
+            builder: (context) => ItemActivity(value, sourceType),
           ),
         ));
       },
@@ -75,13 +77,19 @@ class ItemResult extends StatelessWidget {
 
 class ChapterButton extends StatelessWidget {
   final ChapterResult chapter;
-  const ChapterButton(this.chapter, {Key? key}) : super(key: key);
+  final SourceType sourceType;
+  const ChapterButton(this.chapter, this.sourceType, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-
+        CoreClient.getChapter(chapter.detail ?? '').then((value) => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Reader(value, sourceType),
+          ),
+        ));
       },
       child: Padding(
         padding: const EdgeInsets.all(15),

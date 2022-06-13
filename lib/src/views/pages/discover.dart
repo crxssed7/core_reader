@@ -61,7 +61,7 @@ class _ComicSourcesState extends State<ComicSources> {
         if (snapshot.hasData) {
           return ListView.builder(
             itemCount: snapshot.data!.length,
-            itemBuilder: (_, index) => SourceElement(snapshot.data![index]),
+            itemBuilder: (_, index) => SourceElement(snapshot.data![index], SourceType.comics),
           );
         } else {
           return const Center(
@@ -93,7 +93,7 @@ class _MangaSourcesState extends State<MangaSources> {
         if (snapshot.hasData) {
           return ListView.builder(
             itemCount: snapshot.data!.length,
-            itemBuilder: (_, index) => SourceElement(snapshot.data![index]),
+            itemBuilder: (_, index) => SourceElement(snapshot.data![index], SourceType.manga),
           );
         } else {
           return const Center(
@@ -111,8 +111,9 @@ class _MangaSourcesState extends State<MangaSources> {
 
 class SourceElement extends StatefulWidget {
   final Source source;
+  final SourceType sourceType;
 
-  const SourceElement(this.source, {Key? key}) : super(key: key);
+  const SourceElement(this.source, this.sourceType, {Key? key}) : super(key: key);
 
   @override
   State<SourceElement> createState() => _SourceElementState();
@@ -126,7 +127,7 @@ class _SourceElementState extends State<SourceElement> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SourceActivity(widget.source),
+            builder: (context) => SourceActivity(widget.source, widget.sourceType),
           ),
         );
       },

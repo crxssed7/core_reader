@@ -5,8 +5,9 @@ import 'package:core_reader/src/api/models/models.dart';
 
 class ItemActivity extends StatefulWidget {
   final Item item;
+  final SourceType sourceType;
 
-  const ItemActivity(this.item, {Key? key}) : super(key: key);
+  const ItemActivity(this.item, this.sourceType, {Key? key}) : super(key: key);
 
   @override
   State<ItemActivity> createState() => _ItemActivityState();
@@ -163,7 +164,7 @@ class _ItemActivityState extends State<ItemActivity> {
 
   Widget buildChapterList() {
     var chapters = widget.item.chapters?.map((chapter) {
-      return ChapterButton(chapter);
+      return ChapterButton(chapter, widget.sourceType);
     }).toList();
 
     if (chapters != null) {
