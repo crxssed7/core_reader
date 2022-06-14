@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
 
 import 'package:core_reader/src/api/models/models.dart';
 
@@ -16,6 +19,35 @@ class Reader extends StatefulWidget {
 
 class _ReaderState extends State<Reader> {
   bool showAppBar = false;
+  bool volumeControls = true;
+  PageController pageController = PageController();
+  StreamSubscription<HardwareButton>? subscription;
+
+  void startListening() {
+    subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
+      if (event == HardwareButton.volume_down) {
+        pageController.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.linear);
+      } else if (event == HardwareButton.volume_up) {
+        pageController.previousPage(duration: const Duration(milliseconds: 200), curve: Curves.linear);
+      }
+    });
+  }
+
+  void stopListening() {
+    subscription?.cancel();
+  }
+
+  @override
+  void dispose() {
+    stopListening();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startListening();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +102,7 @@ class _ReaderState extends State<Reader> {
             ),
           ),
           reverse: rightToLeft,
+          pageController: pageController,
         ),
       ),
     );
