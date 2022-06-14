@@ -20,6 +20,7 @@ class Reader extends StatefulWidget {
 class _ReaderState extends State<Reader> {
   bool showAppBar = false;
   bool volumeControls = true;
+  int currentPage = 0;
   PageController pageController = PageController();
   StreamSubscription<HardwareButton>? subscription;
 
@@ -70,40 +71,55 @@ class _ReaderState extends State<Reader> {
           )
         ],
       ) : null,
-      body: GestureDetector(
-        onTap: () {
-          setState(() {
-            showAppBar = !showAppBar;
-          });
-        },
-        child: PhotoViewGallery.builder(
-          itemCount: widget.chapter.images?.length,
-          builder: (context, index) {
-            return PhotoViewGalleryPageOptions(
-              imageProvider: NetworkImage(
-                  widget.chapter.images?[index] ?? '# TODO: Not found URL'),
-              // Contained = the smallest possible size to fit one dimension of the screen
-              minScale: PhotoViewComputedScale.contained,
-              // Covered = the smallest possible size to fit the whole screen
-              maxScale: PhotoViewComputedScale.covered * 2,
-            );
-          },
-          scrollPhysics: const BouncingScrollPhysics(),
-          backgroundDecoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
-          ),
-          loadingBuilder: (context, event) => Center(
-            child: SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(
-                value: event == null ? 0 : event.cumulativeBytesLoaded / event.expectedTotalBytes!,
+      body: Stack(
+        children: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                showAppBar = !showAppBar;
+              });
+            },
+            child: PhotoViewGallery.builder(
+              itemCount: widget.chapter.images?.length,
+              builder: (context, index) {
+                return PhotoViewGalleryPageOptions(
+                  imageProvider: NetworkImage(
+                      widget.chapter.images?[index] ?? '# TODO: Not found URL'),
+                  // Contained = the smallest possible size to fit one dimension of the screen
+                  minScale: PhotoViewComputedScale.contained,
+                  // Covered = the smallest possible size to fit the whole screen
+                  maxScale: PhotoViewComputedScale.covered * 2,
+                );
+              },
+              scrollPhysics: const BouncingScrollPhysics(),
+              backgroundDecoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
               ),
+              loadingBuilder: (context, event) => Center(
+                child: SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    value: event == null ? 0 : event.cumulativeBytesLoaded / event.expectedTotalBytes!,
+                  ),
+                ),
+              ),
+              reverse: rightToLeft,
+              pageController: pageController,
+              onPageChanged: (value) {
+                setState(() {
+                  currentPage = value;
+                });
+              },
             ),
           ),
-          reverse: rightToLeft,
-          pageController: pageController,
-        ),
+          Container(
+            alignment: AlignmentDirectional.bottomCenter,
+            child: Text(
+              "${currentPage + 1} / ${widget.chapter.images?.length}"
+            ),
+          )
+        ],
       ),
     );
   }
